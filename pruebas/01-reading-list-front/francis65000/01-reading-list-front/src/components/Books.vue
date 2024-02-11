@@ -1,51 +1,8 @@
-<script setup>
-    import { defineProps, ref, onMounted } from 'vue';
-    import data from '../assets/books.json';
-
-    const libreria = ref([]);
-    const favoritos = ref([]);
-
-    // Cargar datos del localStorage cuando se monta el componente
-    onMounted(() => {
-        const storedLibreria = localStorage.getItem('libreria');
-        const storedFavoritos = localStorage.getItem('favoritos');
-        
-        if (storedLibreria) {
-            libreria.value = JSON.parse(storedLibreria);
-        } else {
-            libreria.value = data.library.map((data) => data.book);
-            // Guardar la librería inicial en el localStorage
-            localStorage.setItem('libreria', JSON.stringify(libreria.value));
-        }
-        
-        if (storedFavoritos) {
-            favoritos.value = JSON.parse(storedFavoritos);
-        }
-    });
-
-    // Marcar como favorito
-    const marcarComoFavorito = (book) => {
-        document.getElementById(`favorito_${book.title}`).innerHTML = '⭐';
-        favoritos.value.push(book);
-        // Guardar los favoritos actualizados en el localStorage
-        localStorage.setItem('favoritos', JSON.stringify(favoritos.value));
-    };
-
-    // Eliminar favorito
-    const eliminarFavorito = (book) => {
-        document.getElementById(`favorito_${book.title}`).innerHTML = '';
-        favoritos.value = favoritos.value.filter(favorito => favorito.title !== book.title);
-        // Guardar los favoritos actualizados en el localStorage
-        localStorage.setItem('favoritos', JSON.stringify(favoritos.value));
-    };
-</script>
-
 <template>
-    <h1>📚 LIBRERÍA</h1>
     <div class="titles">
         <div>
             <h3>📘 Catálogo de libros</h3>
-            <div class="catalogo">
+            <div class="catalogo" id="cajaCatalogo">
                 <div v-for="book in libreria" :key="book.id" class="tarjetaLibro" @click="marcarComoFavorito(book)">
                     <div>
                         <img class="portada" :src="book.cover" :alt="book.title">
@@ -68,6 +25,52 @@
         </div>
     </div>
 </template>
+  
+<script setup>
+import { defineProps, ref, onMounted, watch } from 'vue';
 
-<style>
-</style>
+const props = defineProps({
+    libreria: {
+        type: Array,
+        required: true
+    }
+});
+
+// Declaración de la variable reactiva favoritos
+const favoritos = ref([]);
+
+// Cargar datos de favoritos del localStorage al montar el componente
+onMounted(() => {
+  const storedFavoritos = localStorage.getItem('favoritos');
+  if (storedFavoritos) {
+    favoritos.value = JSON.parse(storedFavoritos);
+  }
+});
+
+// Watcher para guardar cambios en el localStorage
+watch(favoritos, (newFavoritos) => {
+  localStorage.setItem('favoritos', JSON.stringify(newFavoritos));
+});
+
+// Marcar un libro como favorito
+const marcarComoFavorito = (book) => {
+    const index = favoritos.value.findIndex(fav => fav.title === book.title);
+    if (index === -1) {
+        document.getElementById('favorito_' + book.title).innerHTML = '⭐';
+        favoritos.value.push(book); // Actualiza favoritos
+    }
+    // Guardar cambios en localStorage
+    localStorage.setItem('favoritos', JSON.stringify(favoritos.value));
+};
+
+// Eliminar un favorito
+const eliminarFavorito = (favorito) => {
+    document.getElementById('favorito_' + favorito.title).innerHTML = '';
+    favoritos.value = favoritos.value.filter(fav => fav.title !== favorito.title); // Actualiza favoritos
+    // Guardar cambios en localStorage
+    localStorage.setItem('favoritos', JSON.stringify(favoritos.value));
+};
+
+</script>
+  
+<style></style>
