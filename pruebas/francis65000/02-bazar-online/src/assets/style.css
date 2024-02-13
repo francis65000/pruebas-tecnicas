@@ -1,0 +1,68 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.buscador{
+    text-align: center;
+}
+
+/*header*/
+.header{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: #e8e8e8;
+    color: black;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.router-link{
+    text-decoration: none;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.search input, .search button{
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.search button{
+    background-color: rgb(72, 72, 255);
+    color: white;
+    cursor: pointer;
+    padding: 5px 20px;
+}
+
+/*tarjeta de productos*/
+.buscador input, .buscador button{
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.buscador button{
+    margin-top: 10px;
+    background-color: rgb(72, 72, 255);
+    color: white;
+    cursor: pointer;
+    padding: 5px 20px;
+}
+
+.buscador{
+    padding: 10%;
+    text-align: center;
+}
+
+.iconoInicio{
+    font-size: 100px;
+}
