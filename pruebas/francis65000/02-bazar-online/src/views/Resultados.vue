@@ -1,8 +1,8 @@
 <template>
   <div class="tarjeta">
     <h3>Resultados de la búsqueda: {{ search }}</h3>
-    <div class="tarjeta-producto" v-for="producto in products" :key="producto.id">
-      <p></p>
+    <div class="tarjeta-producto" v-for="producto in filteredProducts" :key="producto.id">
+      <p> {{ producto.title }}</p>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 import { defineProps, ref, onMounted } from "vue";
 
 const props = defineProps({
-  products: {
+  filteredProducts: {
     type: Array,
     required: true,
   },

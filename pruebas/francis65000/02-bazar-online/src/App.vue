@@ -21,7 +21,7 @@
           </div>
         </div>
         
-        <Resultados :filteredProducts="filteredProducts" />
+        <Resultados :filteredProducts="filteredProducts"/>
       </div>
     </div>
   </template>
