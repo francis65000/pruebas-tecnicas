@@ -66,3 +66,20 @@ body{
 .iconoInicio{
     font-size: 100px;
 }
+
+/*Tarjetas*/
+.tarjeta-producto{
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+}
+
+.resultadoBusqueda h3, p{
+    margin: 20px;
+}
+
+.producto{
+    background-color: yellow;
+    margin: 10px;
+    padding: 1% 2%;
+}
