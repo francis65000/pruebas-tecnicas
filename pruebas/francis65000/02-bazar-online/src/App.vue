@@ -58,7 +58,12 @@ const buscar = async () => {
   try {
     const response = await fetch(`https://api-productos-oi50.onrender.com/api/items?q=${searchQuery.value}`);
     const data = await response.json();
-    searchedProducts.value = data;
+    
+    // 1. Console.log de lo que se ha encontrado en la búsqueda
+    console.log("Resultados de la búsqueda:", data.products);
+    
+    // 2. Guardar los resultados de la búsqueda en un array y pasarlos a la vista de resultados.vue
+    searchedProducts.value = data.products;
     routerInstance.push({ path: '/resultados' });
   } catch (error) {
     console.error(error);
