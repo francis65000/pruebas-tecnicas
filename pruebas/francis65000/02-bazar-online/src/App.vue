@@ -24,23 +24,8 @@
       </div>
       <div class="resultadoBusqueda">
         <h3>Resultados de la búsqueda</h3>
-        <div class="tarjeta-producto" v-if="searchedProducts.length > 0">
-          <div v-for="producto in searchedProducts" :key="producto.id">
-            <router-link :to="{ name: 'Producto', params: { id: producto.id } }">
-              <div class="producto">
-                <p>{{ producto.title }}</p>
-                <p>Categoría: {{ producto.category }}</p>
-              </div>
-            </router-link>
-          </div>
-        </div>
-        <div v-else>
-          <p>No se encontraron resultados</p>
-        </div>
+        <Resultados :searchedProducts="searchedProducts.items" />
       </div>
-    </div>
-    <div v-else-if="router.path === '/producto/:id'">
-      <h3>Vista única de un producto</h3>
     </div>
   </div>
 </template>
@@ -48,27 +33,35 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Resultados from './views/Resultados.vue';
+import Producto from './views/Producto.vue';
 
 const searchQuery = ref('');
 const router = useRoute();
 const routerInstance = useRouter();
 const searchedProducts = ref([]);
+const selectedProduct = ref(null);
 
 const buscar = async () => {
   try {
-    const response = await fetch(`https://api-productos-oi50.onrender.com/api/items?q=${searchQuery.value}`);
-    const data = await response.json();
+    const response = await fetch(`https://api-productos-oi50.onrender.com/productos/items?q=${encodeURIComponent(searchQuery.value)}`);
+    const data = await response.json()
+
+    searchedProducts.value = data;
     
-    // 1. Console.log de lo que se ha encontrado en la búsqueda
-    console.log("Resultados de la búsqueda:", data.products);
-    
-    // 2. Guardar los resultados de la búsqueda en un array y pasarlos a la vista de resultados.vue
-    searchedProducts.value = data.products;
     routerInstance.push({ path: '/resultados' });
   } catch (error) {
     console.error(error);
   }
 }
+
+// Recuperar el producto seleccionado cuando la ruta es /producto/:id
+routerInstance.afterEach((to, from) => {
+  if (to.params.id) {
+    // Simulando recuperación de datos del producto seleccionado
+    selectedProduct.value = searchedProducts.value.find(producto => producto.id === to.params.id);
+  }
+});
 </script>
 
 <style scoped></style>
