@@ -2,7 +2,7 @@
   <div>
     <div class="buscador" v-if="router.path === '/'">
       <h1 class="iconoInicio">🛍️</h1>
-      <input v-model="searchQuery" type="text" placeholder="Buscar">
+      <input v-model="searchQuery" type="text" placeholder="Buscar" @keyup.enter="buscar">
       <br>
       <button @click="buscar">Buscar</button>
     </div>
@@ -13,7 +13,7 @@
           <h1><router-link to="/" class="router-link">🛍️</router-link></h1>
         </div>
         <div class="search">
-          <input v-model="searchQuery" type="text" placeholder="Buscar">
+          <input v-model="searchQuery" type="text" placeholder="Buscar" @keyup.enter="buscar">
           <button @click="buscar">Buscar</button>
         </div>
         <div>
@@ -31,37 +31,28 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import Resultados from './views/Resultados.vue';
-import Producto from './views/Producto.vue';
+  import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
+  import Resultados from './views/Resultados.vue';
 
-const searchQuery = ref('');
-const router = useRoute();
-const routerInstance = useRouter();
-const searchedProducts = ref([]);
-const selectedProduct = ref(null);
+  const searchQuery = ref('');
+  const router = useRouter();
+  const routerInstance = useRouter();
+  const searchedProducts = ref([]);
+  const selectedProduct = ref(null);
 
-const buscar = async () => {
-  try {
-    const response = await fetch(`https://api-productos-oi50.onrender.com/productos/items?q=${encodeURIComponent(searchQuery.value)}`);
-    const data = await response.json()
+  const buscar = async () => {
+    try {
+      const response = await fetch(`https://api-productos-oi50.onrender.com/productos/items?q=${encodeURIComponent(searchQuery.value)}`);
+      const data = await response.json()
 
-    searchedProducts.value = data;
-    
-    routerInstance.push({ path: '/resultados' });
-  } catch (error) {
-    console.error(error);
+      searchedProducts.value = data;
+      
+      routerInstance.push({ path: '/resultados' });
+    } catch (error) {
+      console.error(error);
+    }
   }
-}
-
-// Recuperar el producto seleccionado cuando la ruta es /producto/:id
-routerInstance.afterEach((to, from) => {
-  if (to.params.id) {
-    // Simulando recuperación de datos del producto seleccionado
-    selectedProduct.value = searchedProducts.value.find(producto => producto.id === to.params.id);
-  }
-});
 </script>
 
 <style scoped></style>
