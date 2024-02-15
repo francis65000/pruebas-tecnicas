@@ -1,6 +1,6 @@
 <template>
   <div class="etiquetas">
-      <p>{{ searchedProducts.length > 0 ? searchedProducts[0].category : '' }}</p>
+      <p>Categoría {{ searchedProducts.length > 0 ? searchedProducts[0].category : '' }}</p>
     </div>
   <div class="grid-container">
     <div class="tarjeta-producto" v-for="producto in searchedProducts" :key="producto.id">
