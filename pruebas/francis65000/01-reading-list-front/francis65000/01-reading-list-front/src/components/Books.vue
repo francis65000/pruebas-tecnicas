@@ -7,6 +7,7 @@
                     <div>
                         <img class="portada" :src="book.cover" :alt="book.title">
                         <h4>{{ book.title }}<span :id="'favorito_' + book.title"></span></h4>
+                        <p>Género: {{ book.genre }}</p>
                     </div>
                 </div>
             </div>
@@ -19,6 +20,7 @@
                         <img class="portada" :src="favorito.cover" :alt="favorito.title"
                             @click="eliminarFavorito(favorito)">
                         <h4>{{ favorito.title }}<span id="'favorito_' + favorito.title">⭐</span></h4>
+                        <p>Género: {{ favorito.genre }}</p>
                     </div>
                 </div>
             </div>
