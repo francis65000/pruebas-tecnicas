@@ -1,15 +1,81 @@
 <template>
   <div class="about">
-    <h1>Vista resultados</h1>
+    <div class="header">
+      <div>
+        <h1><router-link to="/" class="router-link">🛍️ Tienda Online</router-link></h1>
+      </div>
+      <div class="search">
+        <input v-model="queryValue" type="text" placeholder="Buscar" @keyup.enter="buscar">
+        <button @click="buscar">Buscar</button>
+      </div>
+      <div>
+        <a>
+          <h2>🛒</h2>
+        </a>
+      </div>
+    </div>
+    <div>
+
+    </div>
+    <p class="resultadosBusqueda" v-if="search == true">Resultados de la búsqueda: {{ queryValue }}</p>
+    <div v-if="search == true">
+      <TarjetaResultados :searchedProducts="searchedProducts.items" />
+    </div>
+    <div v-else>
+      <TarjetaResultados :searchedProducts="searchedProducts.products" />
+    </div>
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+<script setup lang="ts">
+import TarjetaResultados from '../components/TarjetaResultados.vue'
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const search = ref(false);
+const router = useRouter()
+const queryValue = ref(router.currentRoute.value.query.q) // Ref para mantener actualizado el valor de la consulta
+const searchedProducts = ref([])
+
+// Puedes utilizar el valor de la consulta como desees
+console.log(queryValue.value); // Accede al valor usando .value
+
+onMounted(() => {
+  buscar();
+});
+
+const buscar = async () => {
+  if (queryValue.value === "") {
+    try {
+      searchedProducts.value = [];
+
+      const response = await fetch(`https://api-productos-oi50.onrender.com/api/productos`);
+      const data = await response.json();
+
+      searchedProducts.value = data;
+      console.log(data);
+
+
+
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    try {
+      searchedProducts.value = [];
+
+      const response = await fetch(`https://api-productos-oi50.onrender.com/productos/items?q=${encodeURIComponent(queryValue.value)}`);
+      const data = await response.json();
+
+      searchedProducts.value = data;
+      console.log(data);
+      search.value = true;
+
+    } catch (error) {
+      console.error(error);
+    }
   }
-}
-</style>
+};
+
+</script>
+<style></style>

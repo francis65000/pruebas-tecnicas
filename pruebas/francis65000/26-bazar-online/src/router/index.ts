@@ -19,7 +19,7 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/producto',
+      path: '/producto/:id',
       name: 'producto',
       component: ProductoView,
       props: true
