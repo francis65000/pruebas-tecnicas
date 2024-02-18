@@ -31,6 +31,10 @@ Si eres un reclutador o interesado en el trabajo de nuestros estudiantes:
 
 ¡Gracias por visitar nuestro repositorio de Pruebas Técnicas del Alumnado del IES Jándula!
 
+URL PROYECTOS DESPLEGADOS:
+
+01: https://libreria-dwec.netlify.app/
+02: https://bazar-online-dwec.netlify.app/
 <!---
 IESJandula/PruebasTecnicasAlumnado is a ✨ special ✨ repository because its `README.md` (este archivo) appears on your GitHub profile.
 Puedes hacer clic en el enlace de Vista previa para ver tus cambios.
