@@ -1,13 +1,8 @@
-body {
+body{
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
-
-.buscador {
-  text-align: center;
-}
-
-/*header*/
+/*/////MAQUETACION DEL HEADER/////////////////////////////////////////////////////*/
 .header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -42,143 +37,139 @@ body {
   cursor: pointer;
   padding: 5px 20px;
 }
-
-/*tarjeta de productos*/
-.buscador input,
-.buscador button {
-  font-size: 16px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid black;
-}
-
-.buscador button {
-  margin-top: 10px;
-  background-color: rgb(72, 72, 255);
-  color: white;
-  cursor: pointer;
-  padding: 5px 20px;
-}
-
-.buscador {
-  padding: 10%;
-  text-align: center;
-}
-
-.iconoInicio {
-  font-size: 100px;
-}
-
-.resultadoBusqueda h3,
-p {
-  margin: 20px;
-}
-
-/*Tarjetas*/
-.grid-container {
-  margin: 2%;
+/*////MAQUETACION DE LAS TARJETAS/////////////////////////////////////////////////*/
+.contenedor-tarjetas{
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  /* 3 columnas de tamaño flexible */
-  gap: 20px;
-  /* Espacio entre las tarjetas */
+  grid-template-columns: auto auto auto;
 }
-
 .tarjeta-producto {
-  border: 1px solid #ccc;
-  /* Borde para las tarjetas */
-  border-radius: 8px;
-  /* Bordes redondeados */
-  overflow: hidden;
-  /* Para evitar que el contenido sobresalga */
-}
-
-.router-link {
-  text-decoration: none;
-  /* Quita la decoración de subrayado del enlace */
+  display: flex;
+  margin: 2%;
+  border: 1px solid #ccc; /* Añadimos un borde sólido de color gris claro */
+  border-radius: 10px;
+  padding: 1%;
 }
 
 .producto {
-  padding: 10px;
-  /* Espaciado interno para el contenido */
   display: flex;
   align-items: center;
-  /* Alineamos verticalmente los elementos */
+  cursor: pointer;
 }
 
 .producto img {
   width: 100px;
-  /* Tamaño fijo para la imagen */
   height: 100px;
-  /* Tamaño fijo para la imagen */
   border-radius: 50%;
-  /* Hacemos la imagen redonda */
   margin-right: 20px;
-  /* Espacio entre la imagen y el texto */
-  object-fit: cover;
-  /* La imagen se ajusta dentro del contenedor manteniendo su relación de aspecto */
 }
 
 .informacion {
-  flex: 1;
-  /* El contenido se expandirá para ocupar el espacio disponible */
+  flex-grow: 1;
 }
 
-.nombre,
+.nombre {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
 .categoria {
   margin-bottom: 5px;
-  /* Margen entre los elementos */
-  overflow: hidden;
-  /* Evitamos que el texto sobresalga */
-  text-overflow: ellipsis;
-  /* Si el texto es demasiado largo, lo cortamos y mostramos puntos suspensivos */
-  white-space: nowrap;
-  /* Evitamos que el texto se divida en múltiples líneas */
 }
 
-a {
-  text-decoration: none;
-  color: black;
+.rating {
+  margin-top: 10px;
 }
 
-/*Etiquetas de categorias*/
-.etiquetas {
-  margin-left: 2%;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-    overflow: hidden;
-}
-
-.etiquetas {
-  padding: 0px 2px;
-}
-
-/*Ficha producto*/
-.productoFicha {
-  background-color: green;
+/*///GALERIA DE IMAGENES///////////////////////////////*/
+.galeria {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide el contenedor en dos columnas */
+  gap: 20px; /* Espacio entre las columnas */
 }
 
 /*Vista tablet*/
-@media (max-width: 1290px) {
-  .grid-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    /* 2 columnas de tamaño flexible */
-  }
-
-  .etiquetas{
-    width: 20%;
+@media (max-width: 782px) {
+  .contenedor-tarjetas {
+    grid-template-columns: auto auto; /* Divide el contenedor en dos columnas */
   }
 }
 
-/*Vista móvil */
-@media (max-width: 1032px) {
-  .grid-container {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    /* 2 columnas de tamaño flexible */
+/*Vista movil*/
+@media (max-width: 626px) {
+  .contenedor-tarjetas {
+    grid-template-columns: auto; /* Divide el contenedor en dos columnas */
   }
+}
 
-  .etiquetas{
-    width: 20%;
-  }
+.galeria img{
+  width: 400px; 
+  height: 400px; 
+  object-fit: cover; 
+  border-radius: 100%;
+}
+
+.thumbnail {
+  grid-column: 1 / 2; 
+}
+
+.imagesGalery {
+  grid-column: 2 / 3; 
+}
+
+/* Estilos opcionales para las imágenes */
+.imagesGalery img {
+  width: 100px; 
+  height: 100px;
+  object-fit: cover; 
+  border-radius: 100%;
+  margin-bottom: 10px;
+}
+
+.tarjeta-producto-unico {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin: 2% 10% ;
+  width: 100%;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+/*///RESULTADO BUSQUEDA////////////*/
+.resultadosBusqueda{
+  margin-left: 20px;
+}
+/*///INICIO/////////////////////////*/
+.inicio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10% 30%;
+  height: 60vh;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.iconoInicio{
+  font-size: 60px;
+  margin: 0;
+}
+/*////ETIQUETAS CATEGORIAS//////////////////*/
+
+.categoriesEtiquetas p{
+  display: inline-block;
+  white-space: nowrap;
+  background-color: rgb(72, 72, 255);
+  color: white;
+  border-radius: 10px; /* Agrega este estilo si deseas */
+  margin-left: 5%;
+  padding: 10px;
 }
